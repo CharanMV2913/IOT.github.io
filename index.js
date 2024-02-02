@@ -1,14 +1,3 @@
-const ledSwitch = document.getElementById('ledSwitch');
-
-ledSwitch.addEventListener('change', function() {
-    if(this.checked) {
-        // Send request to turn LED on
-        fetch('/led/on', { method: 'POST' });
-    } else {
-        // Send request to turn LED off
-        fetch('/led/off', { method: 'POST' });
-    }
-});
 document.addEventListener("DOMContentLoaded", function() {
     const ledSwitch = document.getElementById('ledSwitch');
     const statusIndicator = document.getElementById('statusIndicator');
@@ -28,5 +17,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Event listener for switch changes
     ledSwitch.addEventListener('change', function() {
         updateIndicator();
+        // Send request to turn LED on or off based on switch state
+        const endpoint = this.checked ? '/led/on' : '/led/off';
+        fetch(endpoint, { method: 'POST' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('There was an issue with the request.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
     });
 });
