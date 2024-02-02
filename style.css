@@ -1,14 +1,11 @@
-/* style.css */
-
-/* Switch container */
-.switch-container {
+.container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    height: 100vh;
 }
 
-/* Switch label */
 .switch {
     position: relative;
     display: inline-block;
@@ -16,14 +13,12 @@
     height: 34px;
 }
 
-/* Switch input */
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-/* Slider (the background of the switch) */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -37,28 +32,7 @@
     border-radius: 34px;
 }
 
-/* Rounded sliders */
-.slider.round {
-    border-radius: 34px;
-}
-
-/* Indicator for the switch status */
-.status-indicator {
-    width: 16px;
-    height: 16px;
-    background-color: #999;
-    border-radius: 50%;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-/* Indicator for the switch when it's on */
-.on .status-indicator {
-    background-color: #5cb85c;
-}
-
-/* Styling for the switch label (slider) when it's on */
-.slider.round::before {
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -69,4 +43,34 @@
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.indicator {
+    width: 50px;
+    height: 10px;
+    background-color: #ccc;
+    margin-top: 10px;
 }
