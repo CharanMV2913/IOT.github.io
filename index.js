@@ -19,14 +19,12 @@ document.addEventListener("DOMContentLoaded", function() {
     ledSwitch.addEventListener('change', function() {
         updateIndicator();
         // Send message to WebSocket server to turn LED on or off based on switch state
-        const message = this.checked ? 'turn_on' : 'turn_off';
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            socket.send(message);
-        }
+        const message = this.checked ? '1' : '0'; // Sending '1' for on, '0' for off
+        socket.send(message);
     });
 
     // Establish WebSocket connection
-    socket = new WebSocket('ws://localhost:8765'); // Change hostname and port as needed
+    socket = new WebSocket('wss://charanmv2913.github.io/IOT.github.io/ws'); // Change WebSocket URL as needed
 
     socket.onopen = function(event) {
         console.log('WebSocket connection established.');
@@ -34,16 +32,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     socket.onmessage = function(event) {
         const command = event.data;
-        if (command === 'turn_on') {
+        if (command === '1') {
             // Turn on the LED
             console.log('Turning on the LED.');
             // You can update the UI here to indicate the LED is on
             statusIndicator.classList.add('on');
-        } else if (command === 'turn_off') {
+            ledSwitch.checked = true;
+        } else if (command === '0') {
             // Turn off the LED
             console.log('Turning off the LED.');
             // You can update the UI here to indicate the LED is off
             statusIndicator.classList.remove('on');
+            ledSwitch.checked = false;
         }
     };
 
