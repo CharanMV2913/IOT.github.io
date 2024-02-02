@@ -3,18 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LED Control</title>
-    <link rel="stylesheet" href="style.css">
+    <title>WebSocket Client with Switch</title>
+    <script>
+        let ws = new WebSocket("ws://localhost:8765");
+
+        ws.onopen = function(event) {
+            console.log("Connected to WebSocket server");
+        };
+
+        ws.onmessage = function(event) {
+            console.log("Received message:", event.data);
+            // Update switch state based on received message
+            document.getElementById("switch").checked = event.data === 'on';
+        };
+
+        ws.onclose = function(event) {
+            console.log("Connection closed");
+        };
+
+        function toggleSwitch() {
+            let state = document.getElementById("switch").checked ? "on" : "off";
+            ws.send(state);
+            console.log("Sent switch state:", state);
+        }
+    </script>
 </head>
 <body>
-    <h1>LED Control</h1>
-    <div class="switch-container">
-        <label class="switch">
-            <input type="checkbox" id="ledSwitch">
-            <span class="slider round"></span>
-        </label>
-        <div id="statusIndicator" class="status-indicator"></div>
-    </div>
-    <script src="index.js"></script>
+    <h1>WebSocket Client with Switch</h1>
+    <label for="switch">Switch:</label>
+    <input type="checkbox" id="switch" onchange="toggleSwitch()">
 </body>
 </html>
