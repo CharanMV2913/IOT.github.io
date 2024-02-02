@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (toggleSwitch.checked) {
             indicator.style.backgroundColor = '#2196F3'; // Blue color when on
         } else {
-            indicator.style.backgroundColor = '#ccc'; // Gray color when off
+            indicator.style.backgroundColor = '#ddd'; // Light gray color when off
         }
     }
 
