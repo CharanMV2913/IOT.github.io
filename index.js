@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const ledSwitch = document.getElementById('ledSwitch');
     const statusIndicator = document.getElementById('statusIndicator');
-    let socket;
+    let socket = new WebSocket('wss://charanmv2913.github.io/IOT.github.io/ws'); // WebSocket URL
 
     // Function to update the status indicator
     function updateIndicator() {
@@ -23,9 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
         socket.send(message);
     });
 
-    // Establish WebSocket connection
-    socket = new WebSocket('wss://charanmv2913.github.io/IOT.github.io/ws'); // Change WebSocket URL as needed
-
+    // WebSocket event listeners
     socket.onopen = function(event) {
         console.log('WebSocket connection established.');
     };
